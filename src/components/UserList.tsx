@@ -2,7 +2,7 @@ import React, {FC, useEffect} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {fetchUsers} from "../store/action-creators/user";
 import {useActions} from "../hooks/useActions";
-import {Avatar, Card, Container, Grid, Pagination, Typography} from '@mui/material';
+import {Avatar, Card, Container, Grid, Pagination, Typography, CardActionArea} from '@mui/material';
 
 const UserList: FC = () => {
   const {users, loading, error, page, limit} = useTypedSelector(state => state.users)
@@ -27,6 +27,7 @@ const UserList: FC = () => {
 
   return (
     <Container>
+
       <Grid
         sx={{
           flexGrow: 1,
@@ -34,34 +35,39 @@ const UserList: FC = () => {
           justifyContent: 'center',
           gap: 6,
           flexWrap: 'wrap',
-          '& > *': { minWidth: 0, flexBasis: 200 },
+          '& > *': {minWidth: 0, flexBasis: 200},
         }}
       >
         {users.map(user =>
-          <Card
-            key={user.id}
-            variant="outlined"
-            sx={{
-              maxWidth: 345,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-          }}
+          <CardActionArea>
+            <Card
+              key={user.id}
+              variant="outlined"
+              sx={{
+                maxWidth: 345,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingTop: 1
+              }}
 
-          >
-            <Avatar
-              alt={user.image}
-              src={user.image}
-              sx={{width: 50, height: 50}}
-            />
-            <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-              {user.name}
-            </Typography>
+            >
 
-          </Card>
+              <Avatar
+                alt={user.image}
+                src={user.image}
+                sx={{width: 50, height: 50}}
+              />
+              <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                {user.name}
+              </Typography>
+
+            </Card>
+          </CardActionArea>
         )}
       </Grid>
+
 
       <Pagination
         count={42}
