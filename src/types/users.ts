@@ -1,13 +1,18 @@
+import {IUser} from "./user";
+
 export interface IUserState {
-  users: any[],
+  users: IUser[],
   loading: boolean,
-  error: null | string
+  error: null | string;
+  page: number;
+  limit: number;
 }
 
 export enum UserActionTypes {
   FETCH_USERS = 'FETCH_USERS',
   FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
-  FETCH_USERS_ERROR = "FETCH_USERS_ERROR"
+  FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
+  SET_USERS_PAGE = "SET_USERS_PAGE"
 }
 
 interface IFetchUsersAction {
@@ -22,10 +27,15 @@ interface IFetchUsersErrorAction {
   payload: string;
 }
 
+interface ISetUsersPage {
+  type: UserActionTypes.SET_USERS_PAGE;
+  payload: number;
+}
+
 interface IUserAction {
   type: string;
   payload?: any;
 }
 
-export type UserAction = IFetchUsersAction | IFetchUsersSuccessAction | IFetchUsersErrorAction;
+export type UserAction = IFetchUsersAction | IFetchUsersSuccessAction | IFetchUsersErrorAction | ISetUsersPage;
 
