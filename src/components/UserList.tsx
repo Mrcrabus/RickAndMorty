@@ -22,7 +22,6 @@ const UserList: FC = () => {
 
   const handleChange = () => {
     setUsersPage(page + 1);
-    console.log(123)
   };
 
 
@@ -32,7 +31,8 @@ const UserList: FC = () => {
         next={handleChange}
         hasMore={true}
         loader={<h1>Loading...</h1>}
-        dataLength={826}
+        dataLength={page * 20}
+        hasChildren={true}
       >
         <Grid
           sx={{
@@ -45,9 +45,8 @@ const UserList: FC = () => {
           }}
         >
           {users.map(user =>
-            <CardActionArea>
+            <CardActionArea key={user.id}>
               <Card
-                key={user.id}
                 variant="outlined"
                 sx={{
                   maxWidth: 345,
@@ -55,9 +54,9 @@ const UserList: FC = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  padding: 10
+                  paddingTop: 5,
+                  paddingBottom: 5
                 }}
-
               >
 
                 <Avatar
