@@ -2,23 +2,23 @@ import {IFetchUsersAction, IUserState, UserActionTypes} from "../../types/users"
 
 const initialState: IUserState = {
   users: [],
-  loading: false,
-  error: null,
-  page: 1,
-  limit: 20
+  error: '',
+  loading: false
 }
 
 
 export const userReducer = (state = initialState, action: IFetchUsersAction<UserActionTypes, any>): IUserState => {
   switch (action.type) {
     case UserActionTypes.FETCH_USERS :
-      return {...state, loading: true}
-    case UserActionTypes.FETCH_USERS_SUCCESS :
-      return {...state, loading: false, users: [...state.users, ...action.payload]}
-    case UserActionTypes.FETCH_USERS_ERROR :
-      return {...state, loading: false, error: action.payload, users: []}
-    case UserActionTypes.SET_USERS_PAGE:
-      return {...state, page: action.payload}
+      return {
+        ...state,
+        loading: true
+      }
+    case UserActionTypes.SET_USERS:
+      console.log(action.payload)
+      return {...state, loading: false, users: [...state.users, ...action.payload.results]}
+    case UserActionTypes.SET_ERROR :
+      return {...state, error: action.payload, users: []}
     default:
       return state
   }

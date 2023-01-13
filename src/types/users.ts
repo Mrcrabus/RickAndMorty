@@ -2,20 +2,17 @@ import {IUser} from "./user";
 
 export interface IUserState {
   users: IUser[],
-  loading: boolean,
   error: null | string;
-  page: number;
-  limit: number;
+  loading: boolean;
 }
 
 export enum UserActionTypes {
   FETCH_USERS = 'FETCH_USERS',
-  FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
-  FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
-  SET_USERS_PAGE = "SET_USERS_PAGE"
+  SET_USERS = 'SET_USERS',
+  SET_ERROR = 'SET_ERROR'
 }
 
-export interface IFetchUsersAction <T, P>{
+export interface IFetchUsersAction<T, P> {
   type: T;
   payload?: P;
 }

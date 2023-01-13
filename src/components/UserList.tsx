@@ -1,13 +1,15 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Avatar, Card, CardActionArea, Container, Grid, Typography} from '@mui/material';
 import InfiniteScroll from "react-infinite-scroll-component";
-import {fetchUsers, setUsersPage} from "../store/action-creators/userActions";
+import {fetchUsers} from "../store/action-creators/userActions";
 import {useAppDispatch} from "../store";
 
 const UserList: FC = () => {
-  const {users, error, page, limit} = useTypedSelector(state => state.users)
+  const {users, error} = useTypedSelector(state => state.users)
   const dispatch = useAppDispatch()
+  const [limit] = useState(10)
+  const [page, setPage] = useState(1)
 
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const UserList: FC = () => {
 
 
   const handleChange = () => {
-    dispatch(setUsersPage(page + 1));
+    setPage(page + 1);
   };
 
 
@@ -58,7 +60,6 @@ const UserList: FC = () => {
                   paddingBottom: 5
                 }}
               >
-
                 <Avatar
                   alt={user.image}
                   src={user.image}
@@ -67,7 +68,6 @@ const UserList: FC = () => {
                 <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
                   {user.name}
                 </Typography>
-
               </Card>
             </CardActionArea>
           )}
