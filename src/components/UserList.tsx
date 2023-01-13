@@ -1,17 +1,17 @@
 import React, {FC, useEffect} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {fetchUsers} from "../store/action-creators/user";
-import {useActions} from "../hooks/useActions";
-import {Avatar, Card, Container, Grid, Pagination, Typography, CardActionArea} from '@mui/material';
+import {Avatar, Card, CardActionArea, Container, Grid, Typography} from '@mui/material';
 import InfiniteScroll from "react-infinite-scroll-component";
+import {fetchUsers, setUsersPage} from "../store/action-creators/userActions";
+import {useAppDispatch} from "../store";
 
 const UserList: FC = () => {
   const {users, error, page, limit} = useTypedSelector(state => state.users)
-  const {fetchUsers, setUsersPage} = useActions()
+  const dispatch = useAppDispatch()
 
 
   useEffect(() => {
-    fetchUsers(page, limit)
+    dispatch(fetchUsers(page, limit))
 
   }, [page])
 
@@ -21,7 +21,7 @@ const UserList: FC = () => {
 
 
   const handleChange = () => {
-    setUsersPage(page + 1);
+    dispatch(setUsersPage(page + 1));
   };
 
 
@@ -31,7 +31,7 @@ const UserList: FC = () => {
         next={handleChange}
         hasMore={true}
         loader={<h1>Loading...</h1>}
-        dataLength={page * 20}
+        dataLength={users.length}
         hasChildren={true}
       >
         <Grid
@@ -44,8 +44,8 @@ const UserList: FC = () => {
             '& > *': {minWidth: 0, flexBasis: 200},
           }}
         >
-          {users.map(user =>
-            <CardActionArea key={user.id}>
+          {users.map((user, i) =>
+            <CardActionArea key={i}>
               <Card
                 variant="outlined"
                 sx={{

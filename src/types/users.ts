@@ -15,27 +15,25 @@ export enum UserActionTypes {
   SET_USERS_PAGE = "SET_USERS_PAGE"
 }
 
-interface IFetchUsersAction {
-  type: UserActionTypes.FETCH_USERS;
-}
-interface IFetchUsersSuccessAction {
-  type: UserActionTypes.FETCH_USERS_SUCCESS;
-  payload: any[];
-}
-interface IFetchUsersErrorAction {
-  type: UserActionTypes.FETCH_USERS_ERROR;
-  payload: string;
+export interface IFetchUsersAction <T, P>{
+  type: T;
+  payload?: P;
 }
 
-interface ISetUsersPage {
-  type: UserActionTypes.SET_USERS_PAGE;
-  payload: number;
-}
 
-interface IUserAction {
-  type: string;
-  payload?: any;
-}
+// interface IFetchUsersSuccessAction {
+//   type: UserActionTypes.FETCH_USERS_SUCCESS;
+//   payload: any[];
+// }
+// interface IFetchUsersErrorAction {
+//   type: UserActionTypes.FETCH_USERS_ERROR;
+//   payload: string;
+// }
+// interface ISetUsersPage {
+//   type: UserActionTypes.SET_USERS_PAGE;
+//   payload: number;
+// }
 
-export type UserAction = IFetchUsersAction | IFetchUsersSuccessAction | IFetchUsersErrorAction | ISetUsersPage;
+
+// export type UserAction = IFetchUsersAction | IFetchUsersSuccessAction | IFetchUsersErrorAction | ISetUsersPage;
 

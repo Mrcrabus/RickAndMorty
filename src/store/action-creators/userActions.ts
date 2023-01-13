@@ -1,10 +1,10 @@
-import {UserAction, UserActionTypes} from "../../types/users";
+import {IFetchUsersAction, UserActionTypes} from "../../types/users";
 import {Dispatch} from "redux";
 import axios from "axios";
 
 
-export const fetchUsers = (page = 1, limit = 20) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+export const fetchUsers = (page: number = 1, limit: number = 20): any => {
+  return async (dispatch: Dispatch<IFetchUsersAction<UserActionTypes, any>>) => {
     try {
       dispatch({type: UserActionTypes.FETCH_USERS})
       const response = await axios.get('https://rickandmortyapi.com/api/character', {
@@ -18,6 +18,6 @@ export const fetchUsers = (page = 1, limit = 20) => {
   }
 }
 
-export const setUsersPage = (page: number): UserAction => {
+export const setUsersPage = (page: number): IFetchUsersAction<UserActionTypes, number> => {
   return {type: UserActionTypes.SET_USERS_PAGE, payload: page}
 }

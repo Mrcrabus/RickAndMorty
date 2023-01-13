@@ -1,4 +1,4 @@
-import {IUserState, UserAction, UserActionTypes} from "../../types/users";
+import {IFetchUsersAction, IUserState, UserActionTypes} from "../../types/users";
 
 const initialState: IUserState = {
   users: [],
@@ -9,7 +9,7 @@ const initialState: IUserState = {
 }
 
 
-export const userReducer = (state = initialState, action: UserAction): IUserState => {
+export const userReducer = (state = initialState, action: IFetchUsersAction<UserActionTypes, any>): IUserState => {
   switch (action.type) {
     case UserActionTypes.FETCH_USERS :
       return {...state, loading: true}
@@ -18,7 +18,7 @@ export const userReducer = (state = initialState, action: UserAction): IUserStat
     case UserActionTypes.FETCH_USERS_ERROR :
       return {...state, loading: false, error: action.payload, users: []}
     case UserActionTypes.SET_USERS_PAGE:
-      return {...state, page:  action.payload}
+      return {...state, page: action.payload}
     default:
       return state
   }
